@@ -6,10 +6,8 @@ document
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
     const dateInput = document.getElementById("date").value;
-    let date ;
-    if(dateInput){
-     date = new Date(dateInput).toISOString().split("T")[0];
-    }    const timeSlot = document.getElementById("timeSlot").value;
+    const date = new Date(dateInput).toISOString().split("T")[0];
+    const timeSlot = document.getElementById("timeSlot").value;
     if (!name || !phone || !date || !timeSlot) {
       alert("Please fill all fields");
       return;
