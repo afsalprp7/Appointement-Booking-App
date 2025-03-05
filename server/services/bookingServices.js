@@ -1,14 +1,39 @@
-const DbBookingMethods = require("../repository/DbBookingMethods")
+const DbBookingMethods = require("../repository/DbBookingMethods");
+const bookingModel = require("../repository/Models/bookingModel");
 
-class BookingServices{
-    constructor(){
-        this.dbBookingMethods = new DbBookingMethods() ;
-    }
-    addBookingDetails = async (data)=>{
+class BookingServices {
+  constructor() {
+    this.dbBookingMethods = new DbBookingMethods();
+  }
 
-       await this.dbBookingMethods.addBookingData(data)
-       return ;
+  addBookingDetails = async (data) => {
+    
+    try {
+      const bookingExists = await bookingModel.findOne({
+        name: data.name,
+        phone: data.phone,
+        date: data.date,
+      });
+      if (bookingExists) {
+        return "Already have an appointment";
+      } else {
+        return await this.dbBookingMethods.addBookingData(data);
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
+
+  getAvailbaleSlots = async()=>{
+    try {
+        const dateToday = new Date().toISOString().split("T")[0];
+        const slots = await bookingModel.find({date : dateToday},{timeSlot : 1,_id:0});
+        return slots ;
+    } catch (error) {
+        console.log(error)
+    }
+
+  }
 }
 
-module.exports = BookingServices
+module.exports = BookingServices;
