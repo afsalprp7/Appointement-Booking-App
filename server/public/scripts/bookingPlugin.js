@@ -33,40 +33,56 @@ document
   });
 
 //fetching booked slots
-window.onload = async () => {
-  try {
-    const allSlots = [
-      "09:00 - 09:30",
-      "09:30 - 10:00",
-      "10:00 - 10:30",
-      "10:30 - 11:00",
-      "11:30 - 12:00",
-      "12:30 - 01:00",
-      "02:00 - 02:30",
-      "02:30 - 03:00",
-      "03:30 - 04:00",
-      "04:00 - 04:30",
-      "04:30 - 05:00",
-    ];
+document.addEventListener("DOMContentLoaded", function () {
+  const dateInput = document.getElementById("date");
+  const timeSlotSelect = document.getElementById("timeSlot");
 
-    // Fetch booked slots from the server
-    const response = await fetch("/getSlots");
-    const bookedSlots = await response.json();
+  // Disable past dates
+  const today = new Date().toISOString().split("T")[0];
+  dateInput.setAttribute("min", today);
 
-    // Extract booked time slots from the response
-    const bookedTimes = bookedSlots.map((slot) => slot.timeSlot);
+  // Fetch slots when the user selects a date
+  dateInput.addEventListener("change", async function () {
+    const selectedDate = this.value;
+    if (!selectedDate) return; // Do nothing if no date is selected
 
-    // Filter available slots
-    const availableSlots = allSlots.filter(
-      (slot) => !bookedTimes.includes(slot)
-    );
+    try {
+      // Fetch booked slots from the server
+      const response = await fetch(`/getSlots/${selectedDate}`);
+      const bookedSlots = await response.json();
 
-    // Populate the  dropdown
-    const selectTag = document.getElementById("timeSlot");
-    selectTag.innerHTML = availableSlots
-      .map((slot) => `<option value="${slot}">${slot}</option>`)
-      .join("");
-  } catch (error) {
-    console.error("Error fetching slots:", error);
-  }
-};
+      // Define all available slots
+      const allSlots = [
+        "09:00 - 09:30",
+        "09:30 - 10:00",
+        "10:00 - 10:30",
+        "10:30 - 11:00",
+        "11:30 - 12:00",
+        "12:30 - 01:00",
+        "02:00 - 02:30",
+        "02:30 - 03:00",
+        "03:30 - 04:00",
+        "04:00 - 04:30",
+        "04:30 - 05:00",
+      ];
+
+      // Extract booked time slots
+      const bookedTimes = bookedSlots.map((slot) => slot.timeSlot);
+
+      // Filter available slots
+      const availableSlots = allSlots.filter(
+        (slot) => !bookedTimes.includes(slot)
+      );
+
+      // Populate the dropdown
+      timeSlotSelect.innerHTML = availableSlots.length
+        ? availableSlots
+            .map((slot) => `<option value="${slot}">${slot}</option>`)
+            .join("")
+        : "<option>No slots available</option>";
+    } catch (error) {
+      console.error("Error fetching slots:", error);
+      timeSlotSelect.innerHTML = "<option>Error loading slots</option>";
+    }
+  });
+});

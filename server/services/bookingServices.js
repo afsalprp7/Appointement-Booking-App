@@ -7,7 +7,6 @@ class BookingServices {
   }
 
   addBookingDetails = async (data) => {
-    
     try {
       const bookingExists = await bookingModel.findOne({
         name: data.name,
@@ -24,16 +23,17 @@ class BookingServices {
     }
   };
 
-  getAvailbaleSlots = async()=>{
+  getAvailbaleSlots = async (date) => {
     try {
-        const dateToday = new Date().toISOString().split("T")[0];
-        const slots = await bookingModel.find({date : dateToday},{timeSlot : 1,_id:0});
-        return slots ;
+      const slots = await bookingModel.find(
+        { date: date },
+        { timeSlot: 1, _id: 0 }
+      );
+      return slots;
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-
-  }
+  };
 }
 
 module.exports = BookingServices;

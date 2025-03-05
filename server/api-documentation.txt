@@ -1,0 +1,31 @@
+Appointment booking Interface
+
+
+Base URL : http://localhost:4000/
+
+1.Fetching the booked slots from the db and load the available in the interface
+
+ endpoint : Get localhost:4000/getSlots/:date 
+ api : http://localhost:4000/getSlots/date 
+
+response : [{
+    timeSlot : "09:30 - 10:00"
+}]
+
+
+2. Rendering the USer Interface from the view folder
+
+endpoint: GET localhost:4000/
+api : http://localhost:4000/
+
+
+3.Added booking Informations in to the databse
+
+endpoint : POST localhost:4000/book
+
+request : body = {
+    name : string,
+    phone : string ,
+    date : string ,
+    timeSlot : string
+}

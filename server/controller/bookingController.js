@@ -4,7 +4,7 @@ class BookingController {
   constructor() {
     this.bookingService = new BookingServices();
   }
-
+  //render the page
   getBookingInterface = (req, res) => {
     try {
       res.render("bookingInterface", { title: "Booking Appointment" });
@@ -13,6 +13,7 @@ class BookingController {
     }
   };
 
+  //adding the data and sending the response
   addBookingData = async (req, res) => {
     try {
       const data = req.body;
@@ -27,9 +28,11 @@ class BookingController {
     }
   };
 
-  getAvailableSlots = async(req,res) => {
+  //giving available slots
+  getAvailableSlots = async (req, res) => {
     try {
-      const availableSlots = await this.bookingService.getAvailbaleSlots();
+      const date = req.params.date;
+      const availableSlots = await this.bookingService.getAvailbaleSlots(date);
       res.status(200).json(availableSlots);
     } catch (error) {
       console.error(error);
