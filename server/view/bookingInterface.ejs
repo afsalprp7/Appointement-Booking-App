@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bookingInterface.css">
+    <script src="../scripts/bookingPlugin.js"></script>
+    <title>Appointment Booking</title>
+</head>
+<body>
+    
+    <div class="main-container">
+        <h1>Book An Appointment</h1>
+    <form id="booking-form" action="">
+        <div>
+            <label class="input-label" for="">Name</label>
+            <input name="name" id="name" type="text">
+        </div>
+        <div>
+            <label class="input-label" for="">Phone number</label>
+            <input name="phone" id="phone" type="text">
+        </div>
+        <div>
+            <label class="input-label" for="">Date</label>
+            <input name="date" id="date" type="date">
+        </div>
+        <div>
+            <label class="input-label"  for="">Time slots available</label>
+            <select name="timeSlot" id="timeSlot">
+                <option value="09:00 - 09:30">09:00 - 09:30</option>
+                <option value="09:30 - 10:00">09:30 - 10:00</option>
+                <option value="10:00 - 10:30">10:00 - 10:30</option>
+                <option value="10:30 - 11:00">10:30 - 11:00</option>
+                <option value="11:30 - 12:00">11:30 - 12:00</option>
+                <option value="12:30 - 01:00">12:30 - 01:00</option>
+                <option value="02:00 - 02:30">02:00 - 02:30</option>
+                <option value="02:30 - 03:00">02:30 - 03:00</option>
+                <option value="03:30 - 04:00">03:30 - 04:00</option>
+                <option value="04:00 - 04:30">04:00 - 04:30</option>
+                <option value="04:30 - 05:00">04:30 - 05:00</option>
+            </select>
+        </div>
+        <button type="submit" class="button-submit">BOOK</button>
+    </form>
+</div>
+<script src="../scripts/bookingPlugin.js"></script>
+</body>
+</html>

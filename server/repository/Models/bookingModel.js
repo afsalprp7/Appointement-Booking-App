@@ -8,11 +8,11 @@ const bookingSchema = new mongoose.Schema({
 
     phone :{
         type : String,
-        require : true
+        required : true
     },
     date : {
-        tyep : Date,
-        require : true
+        type : Date,
+        required : true
     },
     timeSlot :{
         type : String,

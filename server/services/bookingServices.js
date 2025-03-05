@@ -4,8 +4,10 @@ class BookingServices{
     constructor(){
         this.dbBookingMethods = new DbBookingMethods() ;
     }
-    bookSlot = ()=>{
+    addBookingDetails = async (data)=>{
 
+       await this.dbBookingMethods.addBookingData(data)
+       return ;
     }
 }
 
